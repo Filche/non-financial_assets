@@ -7,9 +7,96 @@
     <title>Login Page</title>
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
     <link href="../css/login.css" rel="stylesheet">
+    <style>.parent{
+        display: flex;
+        flex-direction: column;
+
+        width: 302px;
+        height: 406px;
+        background: rgba(255,253,253,0.3799999952316284);
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+
+        border-radius: 26px;
+        overflow: hidden;
+    }
+    .parent *{
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+    }
+    .background{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        background: linear-gradient(rgba(164,183,253,0.5699999928474426), rgba(128,140,221,1));
+    }
+    .image{
+        display: block;
+        background: url("../images/IDO_image.png");
+    }
+    .input_text{
+        background: rgba(255,252,252,1);
+        width: 244px;
+        height: 35px;
+        border-radius: 7px;
+        border: white;
+        overflow: hidden;
+        font-family: Inter;
+        font-weight: Medium;
+        font-size: 13px;
+        opacity: 1;
+        text-align: left;
+    }
+    .forget_pass{
+        opacity: 1;
+        width: 244px;
+        text-align: right;
+        font-family: Inter;
+        font-weight: Medium;
+        font-size: 11px;
+    }
+    .submit_button{
+        width: 245px;
+        height: 35px;
+        background: rgba(35,29,94,1);
+        opacity: 1;
+        border-radius: 7px;
+        border: white;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        color: rgba(255,252,252,0.8999999761581421);;
+        font-family: Inter;
+        font-weight: Medium;
+        font-size: 13px;
+        text-align: center;
+    }
+    .error_massage{
+        color: red;
+        font-family: Inter;
+        font-weight: Medium;
+        font-size: 13px;
+        text-align: center;
+    }</style>
 </head>
 <body>
-    <div class="background">
+    <div class="background" style="position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background: linear-gradient(rgba(164,183,253,0.5699999928474426), rgba(128,140,221,1));">
         <div class="parent">
             <form name="f" method="post" action="/process-login">
                 <img class="image" src="../images/IDO_image.png"/>
