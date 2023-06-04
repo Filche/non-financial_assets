@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    <link href="../css/registration.css" rel="stylesheet"/>
 </head>
 <body>
-
+<div class="background">
+    <div class="parent">
+        <form name="f" method="POST" action="/process-registration">
+            <img class="image" src="../images/IDO_image.png" alt="IDO Logo"/>
+            <br/>
+            <div class="NFA">Форма регистрации пользователя</div>
+            <br/>
+            <input class="input_text" placeholder="Логин" type="text" name="username" id="username"/>
+            <br/>
+            <br/>
+            <input class="input_text" placeholder="Пароль" type="password" name="password" id="password"/>
+            <br/>
+            <br/>
+            <input class="input_text" placeholder="Имя" type="text" name="firstName" id="firstName"/>
+            <br/>
+            <br/>
+            <input class="input_text" placeholder="Фамилия" type="text" name="lastName" id="lastName"/>
+            <br/>
+            <br/>
+            <input class="submit_button" type="submit" value="Зарегистрировать">
+            <br/>
+            <br/>
+            <div class="error_massage" th:if="${param.error}">
+                Ошибка ввода данных
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

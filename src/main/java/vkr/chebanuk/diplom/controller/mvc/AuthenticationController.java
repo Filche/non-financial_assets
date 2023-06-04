@@ -36,7 +36,6 @@ public class AuthenticationController {
     public String processRegistration(@ModelAttribute("user") @Valid Customer user,
                                       BindingResult bindingResult) {
 
-        //check if user already exists
         customerValidator.validate(user, bindingResult);
 
         if(bindingResult.hasErrors()){

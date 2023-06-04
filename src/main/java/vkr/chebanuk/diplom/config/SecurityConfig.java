@@ -14,11 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
-
-
-    //authorization
-    //SpringSecurity configuration
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         //only ADMIN can go to /ui/user/list
@@ -26,7 +21,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/ui/user/list").hasRole("ADMIN")
-                .requestMatchers("/auth/login", "/auth/registration", "/error", "/auth/process-registration").permitAll()
+                .requestMatchers("/auth/login", "/auth/registration", "/error", "/auth/process-registration", "/css/**", "/images/**").permitAll()
                 .requestMatchers("/ui/**").authenticated()
                 .requestMatchers("/home").authenticated()
                 .requestMatchers("/user").authenticated()
