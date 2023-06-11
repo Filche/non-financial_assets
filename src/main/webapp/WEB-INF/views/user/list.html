@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Users List</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+</head>
+
+<body>
+<div class = "w3-container">
+    <table id="entities_table" class="w3-table w3-striped w3-bordered w3-hoverable">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+    </table>
+
+    <!--        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <script type="text/javascript">
+
+        function ajaxGet(){
+
+            $.getJSON('/user', function (json) {
+                console.log(json);
+
+                var tr = [];
+                for (var i = 0; i < json.length; i++) {
+
+                    tr.push('<tr>');
+                    tr.push('<td><a id=' + json[i].id + ' href="/ui/user/read/' + json[i].id + '">' + json[i].id + '</a></td>');
+                    tr.push('<td>'+json[i].firstName+'</td>');
+                    tr.push('<td>'+json[i].lastName+'</td>');
+                    tr.push('<td>'+json[i].username+'</td>');
+                }
+
+                $('#entities_table').append($(tr.join('')));
+            });
+        }
+
+        $(document).delegate('#btnLogout','click',function(event){
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: '/logout',
+                success: function(result){
+                    location.href="/auth/login";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            ajaxGet();
+        });
+    </script>
+
+</div>
 </body>
 </html>

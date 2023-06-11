@@ -11,21 +11,24 @@
 <body>
 <div class="background">
     <div class="parent">
-        <form name="f" method="POST" action="/process-registration">
+        <form name="f" th:method="POST" th:action="@{/auth/process-registration}" th:object="${user}">
             <img class="image" src="../images/IDO_image.png" alt="IDO Logo"/>
             <br/>
             <div class="NFA">Форма регистрации пользователя</div>
             <br/>
-            <input class="input_text" placeholder="Логин" type="text" name="username" id="username"/>
+            <input class="input_text" placeholder="Логин" type="text" th:field="*{username}" name="username" id="username"/>
             <br/>
             <br/>
-            <input class="input_text" placeholder="Пароль" type="password" name="password" id="password"/>
+            <input class="input_text" placeholder="Пароль" type="password" th:field="*{password}" name="password" id="password"/>
             <br/>
             <br/>
-            <input class="input_text" placeholder="Имя" type="text" name="firstName" id="firstName"/>
+            <input class="input_text" placeholder="Имя" type="text" th:field="*{firstName}" name="firstName" id="firstName"/>
             <br/>
             <br/>
-            <input class="input_text" placeholder="Фамилия" type="text" name="lastName" id="lastName"/>
+            <input class="input_text" placeholder="Фамилия" type="text" th:field="*{lastName}" name="lastName" id="lastName"/>
+            <br/>
+            <br/>
+            <input class="input_text" placeholder="Роль" type="text" name="" id=""/>
             <br/>
             <br/>
             <input class="submit_button" type="submit" value="Зарегистрировать">

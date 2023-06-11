@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Assets List</title>
-    <link href="../css/asset_list.css" rel="stylesheet"/>
+    <link th:href="@{/css/asset_list.css}" rel="stylesheet"/>
 </head>
 <body>
   <div class="background">
@@ -13,7 +13,7 @@
         <form method="GET" action="/ui/assets/read">
             <div class="parent_table">
                 <div class="action_table">
-                    <img class="image" src="../images/IDO_image.png" alt="IDO Logo"/>
+                    <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
                 </div>
                 <div class="assets_table">
                     <input class="search" placeholder="Поиск..."/>
