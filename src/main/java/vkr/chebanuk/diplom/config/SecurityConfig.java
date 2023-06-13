@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/login", "/auth/registration", "/error", "/auth/process-registration", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/ui/**").authenticated()
                 .requestMatchers("/home", "/user-details").authenticated()
-                .requestMatchers("/user/**").authenticated()
+                .requestMatchers("/user/**", "/assets/**").authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login").loginProcessingUrl("/process-login")
                 .defaultSuccessUrl("/ui/user/list", true)

@@ -6,11 +6,13 @@
     <meta charset="UTF-8">
     <title>Assets List</title>
     <link th:href="@{/css/asset_list.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
+
 </head>
 <body>
   <div class="background">
     <div class="parent">
-        <form method="GET" action="/ui/assets/read">
+<!--        <form method="GET" action="/ui/assets/read">-->
             <div class="parent_table">
                 <div class="action_table">
                     <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
@@ -21,129 +23,83 @@
                     <br/>
                     <div class="scroll-table">
                         <div class="scroll-table-body">
-                            <table>
-                                <thead>
+                            <table id="entities_table" class="w3-table w3-striped w3-bordered w3-hoverable">
                                 <tr>
-                                    <th>Название блюда</th>
-                                    <th>Белки</th>
-                                    <th>Жиры</th>
-                                    <th>Углеводы</th>
-                                    <th>Ккал</th>
-                                    <th></th>
+                                    <th>Идентификатор</th>
+                                    <th>Название актива</th>
+                                    <th>Тип актива</th>
+                                    <th>Категория</th>
+                                    <th>Инвентарный номер</th>
+                                    <th>Заводской номер</th>
+                                    <th>Модель</th>
+                                    <th>Количество</th>
+                                    <th>Стоимость</th>
+                                    <th>Балансовая стоимость</th>
+                                    <th>Аудитория</th>
+                                    <th>Примечания</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr><tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr><tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr><tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-                                <tr>
-                                    <td>Азу</td>
-                                    <td>11,9</td>
-                                    <td>14,2</td>
-                                    <td>10,2</td>
-                                    <td>214</td>
-                                </tr>
-
-                                </tbody>
                             </table>
+
+                            <!--        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+                            <script type="text/javascript">
+
+                                function ajaxGet(){
+
+                                    $.getJSON('/assets', function (json) {
+                                        console.log(json);
+
+                                        var tr = [];
+                                        for (var i = 0; i < json.length; i++) {
+
+                                            tr.push('<tr>');
+                                            tr.push('<td><a id=' + json[i].id + ' href="/ui/assets/read/' + json[i].id + '">' + json[i].id + '</a></td>');
+                                            tr.push('<td>'+json[i].name+'</td>');
+                                            tr.push('<td>'+json[i].type+'</td>');
+                                            tr.push('<td>'+json[i].category+'</td>');
+                                            tr.push('<td>'+json[i].inventoryNumber+'</td>');
+                                            tr.push('<td>'+json[i].factoryNumber+'</td>');
+                                            tr.push('<td>'+json[i].model+'</td>');
+                                            tr.push('<td>'+json[i].quantity+'</td>');
+                                            tr.push('<td>'+json[i].cost+'</td>');
+                                            tr.push('<td>'+json[i].balanceCost+'</td>');
+                                            tr.push('<td>'+json[i].auditorium+'</td>');
+                                            tr.push('<td>'+json[i].inventoryNumber+'</td>');
+                                            tr.push('<td>'+json[i].note+'</td>');
+                                        }
+
+                                        $('#entities_table').append($(tr.join('')));
+                                    });
+                                }
+
+                                $(document).delegate('#btnLogout','click',function(event){
+                                    event.preventDefault();
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: '/logout',
+                                        success: function(result){
+                                            location.href="/auth/login";
+                                            window.setTimeout(function(){
+                                                location.reload();
+                                            }, 1000);
+                                        },
+                                        error: function(err){
+                                            alert('LOGOUT ERROR!');
+                                        }
+                                    });
+                                });
+
+
+                                $(document).ready(function(){
+                                    ajaxGet();
+                                });
+                            </script>
                         </div>
                     </div>
                     <br/>
                 </div>
             </div>
-        </form>
+<!--        </form>-->
     </div>
   </div>
 </body>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+    <link rel="stylesheet" th:href="@{css/assets_update.css}">
+    <title>Update User</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+</head>
+
+<body>
+<div class="w3-container">
+
+    <p id="assetsId" hidden><span th:text="${id}"/></p>
+
+    <div class="w3-container w3-bar w3-blue">
+        <span class="w3-bar-item" style="padding-left:1px"><b>Update User</b></span>
+
+        <span class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_logout.jpg}"
+                 alt="Logout"
+                 style="width:27px;height:27px;"
+                 title="Logout"
+                 id="btnLogout">
+        </span>
+
+        <a href="/home" class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_home.png}"
+                 alt="home"
+                 style="width:27px;height:27px;"
+                 title="home"></a>
+    </div>
+    <br>
+
+
+    <table id="update_entity_table" class="w3-table w3-bordered">
+        <tr>
+            <th>Property Name</th>
+            <th>Property Value</th>
+        </tr>
+        <tr>
+            <td>Id</td>
+            <td><label id="assets_id" name="assets_id_name" ></label></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input id="assets_name" name="assets_name_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td><input id="assets_type" name="assets_type_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td><input id="assets_category" name="assets_category_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Inventory Number</td>
+            <td><input id="assets_inventory_number" name="assets_inventory_number_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Factory Number</td>
+            <td><input id="assets_factory_number" name="assets_factory_number_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Model</td>
+            <td><input id="assets_model" name="assets_model_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td><input id="assets_quantity" name="assets_quantity_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Cost</td>
+            <td><input id="assets_cost" name="assets_cost_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Balance Cost</td>
+            <td><input id="assets_balance_cost" name="assets_balance_cost_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Auditorium</td>
+            <td><input id="assets_auditorium" name="assets_auditorium_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Note</td>
+            <td><input id="assets_note" name="assets_note_name" type="text"></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+
+
+    <div class="container">
+        <button id="btnSave" class="btnSaveAuto">Save</button>
+        <button id="btnGoToRead" type="button">Cancel</button>
+    </div>
+
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            cache: false,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+        function AssetsDTO(id, name, type, category, inventoryNumber, factoryNumber, model,
+                           quantity, cost, balanceCost, auditorium, note){
+            this.id = id;
+            this.name = name;
+            this.type = type;
+            this.category = category;
+            this.inventoryNumber = inventoryNumber;
+            this.factoryNumber = factoryNumber;
+            this.model = model;
+            this.quantity = quantity;
+            this.cost = cost;
+            this.balanceCost = balanceCost;
+            this.auditorium = auditorium;
+            this.note = note;
+        }
+
+        $(document).delegate('#btnSave','click',function(event){
+            event.preventDefault();
+
+            var assetsId = $('#assetsId').text();
+
+            var id = assetsId;
+            var name = $('#assets_name').val();
+            var type = $('#assets_type').val();
+            var category = $('#assets_category').val();
+            var inventoryNumber = $('#assets_inventory_number').val();
+            var factoryNumber = $('#assets_factory_number').val();
+            var model = $('#assets_model').val();
+            var quantity = $('#assets_quantity').val();
+            var cost = $('#assets_cost').val();
+            var balanceCost = $('#assets_balance_cost').val();
+            var auditorium = $('#assets_auditorium').val();
+            var note = $('#assets_note').val();
+
+            var assetsDTO = new AssetsDTO(id,name,type,category,inventoryNumber,factoryNumber,
+                model,quantity,cost,balanceCost,auditorium,note);
+
+            console.log(assetsId);
+            console.log(id);
+            console.log(name);
+            console.log(type);
+            console.log(category);
+            console.log(inventoryNumber);
+            console.log(factoryNumber);
+            console.log(model);
+            console.log(quantity);
+            console.log(cost);
+            console.log(balanceCost);
+            console.log(auditorium);
+            console.log(note);
+            console.log(assetsDTO);
+            console.log(JSON.stringify(assetsDTO));
+
+            $.ajax({
+                type: "PUT",
+                url: '/assets',
+                data: JSON.stringify(assetsDTO),
+                success: function(result){
+                    location.href="/ui/assets/read/" + assetsId;
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('PUT REQUEST ERROR!');
+                }
+            });
+        });
+
+
+        $(document).delegate('#btnGoToRead','click',function(result){
+
+            var assetsId = $('#assetsId').text();
+
+            location.href="/ui/assets/read/" + assetsId;
+            window.setTimeout(function(){
+                location.reload();
+            }, 1000);
+        });
+
+
+        function ajaxGet(){
+
+            var assetsID = $('#assetsId').text();
+
+            $.getJSON('/assets/' + assetsID, function(json){
+
+                console.log(json);
+
+                $('#assets_id').text(json.id);
+                $('#assets_name').val(json.name);
+                $('#assets_type').val(json.type);
+                $('#assets_category').val(json.category);
+                $('#assets_inventory_number').val(json.inventoryNumber);
+                $('#assets_factory_number').val(json.factoryNumber);
+                $('#assets_model').val(json.model);
+                $('#assets_quantity').val(json.quantity);
+                $('#assets_cost').val(json.cost);
+                $('#assets_balance_cost').val(json.balanceCost);
+                $('#assets_auditorium').val(json.auditorium);
+                $('#assets_note').val(json.note);
+
+            });
+        }
+
+        $(document).delegate('#btnLogout','click',function(event){
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: '/logout',
+                success: function(result){
+                    location.href="/login";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            ajaxGet();
+        });
+
+    </script>
+
+</div>
+
+</body>
+</html>

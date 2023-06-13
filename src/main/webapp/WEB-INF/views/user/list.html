@@ -8,7 +8,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Users List</title>
-    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
 </head>
 
 <body>
@@ -37,6 +37,7 @@
                     tr.push('<td>'+json[i].firstName+'</td>');
                     tr.push('<td>'+json[i].lastName+'</td>');
                     tr.push('<td>'+json[i].username+'</td>');
+                    tr.push('<td>'+json[i].password+'</td>');
                 }
 
                 $('#entities_table').append($(tr.join('')));

@@ -1,10 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+    <link th:href="@{/css/asset_list.css}" rel="stylesheet"/>
+    <title>User</title>
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
 
+</head>
+
+<body>
+<div class="w3-container">
+
+    <p id="id" hidden><span th:text="${id}"/></p>
+
+    <table id="entity_table" class="w3-table w3-striped w3-bordered">
+        <tr>
+            <th>Property Name</th>
+            <th>Property Value</th>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+
+    <form action="/ui/assets/list">
+        <input type="submit" value="Back"/>
+    </form>
+
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            cache: false,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+
+        $(document).delegate('#btnDeleteEntity','click',function(event){
+            event.preventDefault();
+
+            var id = $('#id').text();
+
+            console.log(id);
+
+            $.ajax({
+                type: "DELETE",
+                url: '/assets/' + id,
+                success: function(result){
+                    location.href="/ui/assets/list";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('DELETE REQUEST ERROR!');
+                }
+            });
+        });
+
+
+        function ajaxGet(){
+
+            var id = $('#id').text();
+
+            $.getJSON('/assets/' + id, function(json){
+
+                console.log(json);
+
+                var tr = [];
+
+                tr.push('<tr>');
+                tr.push('<td>Id</td>');
+                tr.push('<td>' + json.id+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Название актива</td>');
+                tr.push('<td>' + json.name+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Тип актива</td>');
+                tr.push('<td>' + json.type+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Категория актива</td>');
+                tr.push('<td>' + json.category+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Инвентарный номер</td>');
+                tr.push('<td>' + json.inventoryNumber+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Заводской номер</td>');
+                tr.push('<td>' + json.factoryNumber+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Модель</td>');
+                tr.push('<td>' + json.model+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Количество</td>');
+                tr.push('<td>' + json.quantity+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Стоимость</td>');
+                tr.push('<td>' + json.cost+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Балансовая стоимость</td>');
+                tr.push('<td>' + json.balanceCost+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Аудитория</td>');
+                tr.push('<td>' + json.auditorium+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Примечания</td>');
+                tr.push('<td>' + json.note+'</td>');
+                tr.push('</tr>');
+
+                $('#entity_table').append($(tr.join('')))
+            });
+        }
+
+        $(document).delegate('#btnLogout','click',function(event){
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: '/logout',
+                success: function(result){
+                    location.href="/login";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            ajaxGet();
+        });
+    </script>
+</div>
 </body>
 </html>

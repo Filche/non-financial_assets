@@ -17,9 +17,19 @@ import lombok.ToString;
 public class Assets {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
+    private String inventoryNumber;
+    private String model;
+    private String factoryNumber;
+    private String auditorium;
+    private String note;
+    private String QRcode;
+    private String photo;
+    private Double cost;
+    private Double balanceCost;
+    private Double quantity;
+    private String type;
+    private String category;
 }
