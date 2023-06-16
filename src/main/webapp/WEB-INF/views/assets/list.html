@@ -16,6 +16,7 @@
             <div class="parent_table">
                 <div class="action_table">
                     <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
+                    <button onclick="location.href='/ui/assets/create'" type="button">Create new asset</button>
                 </div>
                 <div class="assets_table">
                     <input class="search" placeholder="Поиск..."/>
@@ -23,7 +24,7 @@
                     <br/>
                     <div class="scroll-table">
                         <div class="scroll-table-body">
-                            <table id="entities_table" class="w3-table w3-striped w3-bordered w3-hoverable">
+                            <table id="entities_table">
                                 <tr>
                                     <th>Идентификатор</th>
                                     <th>Название актива</th>
@@ -35,6 +36,7 @@
                                     <th>Количество</th>
                                     <th>Стоимость</th>
                                     <th>Балансовая стоимость</th>
+                                    <th>Дата ввода в эксплуатацию</th>
                                     <th>Аудитория</th>
                                     <th>Примечания</th>
                                 </tr>
@@ -62,8 +64,8 @@
                                             tr.push('<td>'+json[i].quantity+'</td>');
                                             tr.push('<td>'+json[i].cost+'</td>');
                                             tr.push('<td>'+json[i].balanceCost+'</td>');
+                                            tr.push('<td>'+json[i].commissioningDate+'</td>');
                                             tr.push('<td>'+json[i].auditorium+'</td>');
-                                            tr.push('<td>'+json[i].inventoryNumber+'</td>');
                                             tr.push('<td>'+json[i].note+'</td>');
                                         }
 

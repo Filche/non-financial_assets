@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vkr.chebanuk.diplom.entity.Customer;
 import vkr.chebanuk.diplom.entity.CustomerRole;
+import vkr.chebanuk.diplom.entity.enums.Roles;
 import vkr.chebanuk.diplom.repository.CustomerRepository;
 import vkr.chebanuk.diplom.repository.CustomerRoleRepository;
 import vkr.chebanuk.diplom.repository.RoleRepository;
@@ -21,7 +22,7 @@ public class CustomerServiceImpl extends AbstractCRUDService<Customer,Long> impl
     RoleRepository roleRepository;
 
     @Autowired
-    CustomerRoleRepository userRoleRepository;
+    CustomerRoleRepository customerRoleRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -32,19 +33,19 @@ public class CustomerServiceImpl extends AbstractCRUDService<Customer,Long> impl
     }
 
     @Override
-    public void create(Customer user) {
+    public void create(Customer customer) {
         //encode password
-        /*String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);*/
+        String encodedPassword = passwordEncoder.encode(customer.getPassword());
+        customer.setPassword(encodedPassword);
 
         //save user into user_table
-        getRepository().save(user);
+        getRepository().save(customer);
 
         //save user and role into user_role
-        /*CustomerRole customerRole = new CustomerRole();
+        CustomerRole customerRole = new CustomerRole();
         customerRole.setCustomerId(customer.getId());
         customerRole.setRoleId(roleRepository.findByTitle(Roles.ROLE_USER.name()).get().getId());
-        userRoleRepository.save(userRole);*/
+        customerRoleRepository.save(customerRole);
     }
 
 }

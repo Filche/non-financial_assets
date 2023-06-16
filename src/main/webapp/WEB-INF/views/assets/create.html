@@ -4,21 +4,20 @@
       lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
-    <link rel="stylesheet" th:href="@{css/assets_update.css}">
-    <title>Update User</title>
-    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" th:href="@{/css/assets_create.css}">
+    <title>Create User</title>
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
 </head>
 
 <body>
 <div>
 
-    <p id="assetsId" hidden><span th:text="${id}"/></p>
+    <p id="userId" hidden><span th:text="${id}"/></p>
 
-    <div >
-        <span><b>Update User</b></span>
+    <div class="w3-container w3-bar w3-blue">
+        <span class="w3-bar-item" style="padding-left:1px"><b>Create User</b></span>
 
-        <span>
+        <span class="w3-bar-item w3-button" style="float: right;">
             <img th:src="@{/images/icon_logout.jpg}"
                  alt="Logout"
                  style="width:27px;height:27px;"
@@ -26,7 +25,7 @@
                  id="btnLogout">
         </span>
 
-        <a href="/home">
+        <a href="/home" class="w3-bar-item w3-button" style="float: right;">
             <img th:src="@{/images/icon_home.png}"
                  alt="home"
                  style="width:27px;height:27px;"
@@ -34,16 +33,16 @@
     </div>
     <br>
 
-
-    <table id="update_entity_table">
+    <table id="create_entity_table" class="w3-table w3-bordered">
         <tr>
             <th>Property Name</th>
             <th>Property Value</th>
         </tr>
-        <tr>
+
+        <!--<tr>
             <td>Id</td>
-            <td><label id="assets_id" name="assets_id_name" ></label></td>
-        </tr>
+            <td><label id="id" name="assets_id_name" ></label></td>
+        </tr>-->
         <tr>
             <td>Name</td>
             <td><input id="assets_name" name="assets_name_name" type="text"></td>
@@ -97,10 +96,9 @@
     <br>
     <br>
 
-
     <div class="container">
-        <button id="btnSave" class="btnSaveAuto">Save</button>
-        <button id="btnGoToRead" type="button">Cancel</button>
+        <button id="btnSave" class="btnSaveEntity">Save</button>
+        <button onclick="location.href='/ui/assets/list'" type="button">Cancel</button>
     </div>
 
     <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
@@ -135,9 +133,7 @@
         $(document).delegate('#btnSave','click',function(event){
             event.preventDefault();
 
-            var assetsId = $('#assetsId').text();
-
-            var id = assetsId;
+            var id = $('#id').val();
             var name = $('#assets_name').val();
             var type = $('#assets_type').val();
             var category = $('#assets_category').val();
@@ -152,76 +148,26 @@
             var note = $('#assets_note').val();
 
             var assetsDTO = new AssetsDTO(id,name,type,category,inventoryNumber,factoryNumber,
-                model,quantity,cost,balanceCost,auditorium,commissioningDate,note);
+                model,quantity,cost,balanceCost,auditorium, commissioningDate, note);
 
-            console.log(assetsId);
-            console.log(id);
-            console.log(name);
-            console.log(type);
-            console.log(category);
-            console.log(inventoryNumber);
-            console.log(factoryNumber);
-            console.log(model);
-            console.log(quantity);
-            console.log(cost);
-            console.log(balanceCost);
-            console.log(auditorium);
-            console.log(commissioningDate);
-            console.log(note);
             console.log(assetsDTO);
             console.log(JSON.stringify(assetsDTO));
 
             $.ajax({
-                type: "PUT",
-                url: '/assets',
+                type: "POST",
+                url: "/assets",
                 data: JSON.stringify(assetsDTO),
                 success: function(result){
-                    location.href="/ui/assets/read/" + assetsId;
+                    location.href="/ui/assets/list";
                     window.setTimeout(function(){
                         location.reload();
                     }, 1000);
                 },
                 error: function(err){
-                    alert('PUT REQUEST ERROR!');
+                    alert('POST REQUEST ERROR!');
                 }
             });
         });
-
-
-        $(document).delegate('#btnGoToRead','click',function(result){
-
-            var assetsId = $('#assetsId').text();
-
-            location.href="/ui/assets/read/" + assetsId;
-            window.setTimeout(function(){
-                location.reload();
-            }, 1000);
-        });
-
-
-        function ajaxGet(){
-
-            var assetsID = $('#assetsId').text();
-
-            $.getJSON('/assets/' + assetsID, function(json){
-
-                console.log(json);
-
-                $('#assets_id').text(json.id);
-                $('#assets_name').val(json.name);
-                $('#assets_type').val(json.type);
-                $('#assets_category').val(json.category);
-                $('#assets_inventory_number').val(json.inventoryNumber);
-                $('#assets_factory_number').val(json.factoryNumber);
-                $('#assets_model').val(json.model);
-                $('#assets_quantity').val(json.quantity);
-                $('#assets_cost').val(json.cost);
-                $('#assets_balance_cost').val(json.balanceCost);
-                $('#assets_auditorium').val(json.auditorium);
-                $('#assets_note').val(json.note);
-
-            });
-        }
 
         $(document).delegate('#btnLogout','click',function(event){
             event.preventDefault();
@@ -241,13 +187,7 @@
             });
         });
 
-        $(document).ready(function() {
-            ajaxGet();
-        });
-
     </script>
-
 </div>
-
 </body>
 </html>

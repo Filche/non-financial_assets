@@ -4,7 +4,6 @@
       lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
     <link th:href="@{/css/asset_list.css}" rel="stylesheet"/>
     <title>User</title>
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
@@ -12,11 +11,11 @@
 </head>
 
 <body>
-<div class="w3-container">
+<div>
 
     <p id="id" hidden><span th:text="${id}"/></p>
 
-    <table id="entity_table" class="w3-table w3-striped w3-bordered">
+    <table id="entity_table">
         <tr>
             <th>Property Name</th>
             <th>Property Value</th>
@@ -26,9 +25,10 @@
     <br>
     <br>
 
-    <form action="/ui/assets/list">
+    <form action="/ui/assets/list" id="buttons">
         <input type="submit" value="Back"/>
     </form>
+    <button id="buttonUpdateEntity">Update</button>
 
     <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
     <script type="text/javascript">
@@ -131,11 +131,16 @@
                 tr.push('</tr>');
 
                 tr.push('<tr>');
+                tr.push('<td>Дата ввода в эксплуатацию</td>');
+                tr.push('<td>' + json.commissioningDate+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
                 tr.push('<td>Примечания</td>');
                 tr.push('<td>' + json.note+'</td>');
                 tr.push('</tr>');
 
-                $('#entity_table').append($(tr.join('')))
+                $('#entity_table').append($(tr.join('')));
             });
         }
 
@@ -153,6 +158,28 @@
                 },
                 error: function(err){
                     alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+        $(document).delegate('#buttonUpdateEntity','click',function(event){
+            event.preventDefault();
+
+            var id = $('#id').text();
+
+            console.log(id);
+
+            $.ajax({
+                type: "GET",
+                url: '/assets/' + id,
+                success: function(result){
+                    location.href="/ui/assets/update/" + id;
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('DELETE REQUEST ERROR!');
                 }
             });
         });
