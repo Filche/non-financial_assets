@@ -4,37 +4,26 @@
       lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
-    <link rel="stylesheet" th:href="@{css/assets_update.css}">
+    <link rel="stylesheet" th:href="@{/css/assets_update.css}">
     <title>Update User</title>
     <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
 </head>
 
 <body>
-<div>
+<div class="background">
 
     <p id="assetsId" hidden><span th:text="${id}"/></p>
-
-    <div >
-        <span><b>Update User</b></span>
-
-        <span>
-            <img th:src="@{/images/icon_logout.jpg}"
-                 alt="Logout"
-                 style="width:27px;height:27px;"
-                 title="Logout"
-                 id="btnLogout">
-        </span>
-
-        <a href="/home">
-            <img th:src="@{/images/icon_home.png}"
-                 alt="home"
-                 style="width:27px;height:27px;"
-                 title="home"></a>
-    </div>
-    <br>
-
-
+    <div class="parent">
+        <div class="parent_table">
+            <div class="action_table">
+                <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
+                <form action="/ui/assets/list" id="buttons">
+                    <input type="submit" value="Back"/>
+                </form>
+            </div>
+            <div class="assets_table">
+                <div class="scroll-table">
+                    <div class="scroll-table-body">
     <table id="update_entity_table">
         <tr>
             <th>Property Name</th>
@@ -246,8 +235,11 @@
         });
 
     </script>
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 </body>
 </html>

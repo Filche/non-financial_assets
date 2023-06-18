@@ -10,29 +10,20 @@
 </head>
 
 <body>
-<div>
+<div class="background">
 
     <p id="userId" hidden><span th:text="${id}"/></p>
-
-    <div class="w3-container w3-bar w3-blue">
-        <span class="w3-bar-item" style="padding-left:1px"><b>Create User</b></span>
-
-        <span class="w3-bar-item w3-button" style="float: right;">
-            <img th:src="@{/images/icon_logout.jpg}"
-                 alt="Logout"
-                 style="width:27px;height:27px;"
-                 title="Logout"
-                 id="btnLogout">
-        </span>
-
-        <a href="/home" class="w3-bar-item w3-button" style="float: right;">
-            <img th:src="@{/images/icon_home.png}"
-                 alt="home"
-                 style="width:27px;height:27px;"
-                 title="home"></a>
-    </div>
-    <br>
-
+    <div class="parent">
+        <div class="parent_table">
+            <div class="action_table">
+                <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
+                <form action="/ui/assets/list" id="buttons">
+                    <input type="submit" value="Back"/>
+                </form>
+            </div>
+            <div class="assets_table">
+                <div class="scroll-table">
+                    <div class="scroll-table-body">
     <table id="create_entity_table" class="w3-table w3-bordered">
         <tr>
             <th>Property Name</th>
@@ -188,6 +179,11 @@
         });
 
     </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

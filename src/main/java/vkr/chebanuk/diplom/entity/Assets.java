@@ -4,13 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Date;
 
 @Data
@@ -29,7 +29,7 @@ public class Assets {
     private String factoryNumber;
     private String auditorium;
     private String note;
-    private String QRcode;
+    private byte[] QRcode;
     private String photo;
     private Double cost;
     private Double balanceCost;
@@ -38,5 +38,4 @@ public class Assets {
     private String category;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date commissioningDate;
-
 }

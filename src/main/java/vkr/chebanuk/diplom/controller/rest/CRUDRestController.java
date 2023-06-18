@@ -1,10 +1,12 @@
 package vkr.chebanuk.diplom.controller.rest;
 
 
+import com.google.zxing.WriterException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vkr.chebanuk.diplom.service.intrf.CRUDService;
 
+import java.io.IOException;
 import java.util.List;
 
 public abstract class CRUDRestController<E, K> {
@@ -27,7 +29,7 @@ public abstract class CRUDRestController<E, K> {
     }
 
     @GetMapping
-    public ResponseEntity<List<E>> findAll(){
+    public ResponseEntity<List<E>> findAll() throws IOException, WriterException {
         List<E> objects = getService().findAll();
         return ResponseEntity.ok(objects);
     }

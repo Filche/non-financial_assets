@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/ui/user/**","/ui/assets/update/**","ui/assets/create").hasRole("ADMIN")
                 .requestMatchers("/auth/login", "/auth/registration", "/error", "/auth/process-registration", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/ui/**").authenticated()
-                .requestMatchers("/home", "/user-details").authenticated()
+                .requestMatchers("/home", "/user-details", "/qrcode/**", "/resources/**").authenticated()
                 .requestMatchers("/user/**", "/assets/**").authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login").loginProcessingUrl("/process-login")

@@ -21,10 +21,12 @@ public class MVCConfig implements WebMvcConfigurer {
         registry.addResourceHandler(
                         "/images/**",
                         "/css/**",
-                        "/js/**")
+                        "/js/**",
+                        "/resources/qrcodes/**")
                 .addResourceLocations(
                         TEMPLATE_PREFIX + "images/",
                         TEMPLATE_PREFIX + "css/",
-                        TEMPLATE_PREFIX + "js/");
+                        TEMPLATE_PREFIX + "js/",
+                        ".src/main/resources/qrcodes/");
     }
 }

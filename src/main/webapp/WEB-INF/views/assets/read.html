@@ -11,183 +11,207 @@
 </head>
 
 <body>
-<div>
+<div class="background">
 
     <p id="id" hidden><span th:text="${id}"/></p>
+    <div class="parent">
+        <div class="parent_table">
+            <div class="action_table">
+                <div id="images">
+                    <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
+<!--                    <img class="image" th:src="@{/images/qrcode/12we3_12es_QRCODE.png}" alt="QR"/>-->
+                </div>
+                <form action="/ui/assets/list" id="buttons">
+                    <input type="submit" value="Back"/>
+                </form>
+                <div>
+                    <button id="buttonUpdateEntity">Update</button>
+                </div>
+            </div>
+            <div class="assets_table">
+                <div class="scroll-table">
+                    <div class="scroll-table-body">
+                        <table id="entity_table" >
+                            <tr>
+                                <th>Property Name</th>
+                                <th>Property Value</th>
+                            </tr>
+                        </table>
 
-    <table id="entity_table">
-        <tr>
-            <th>Property Name</th>
-            <th>Property Value</th>
-        </tr>
-    </table>
+                        <br>
+                        <br>
 
-    <br>
-    <br>
+                        <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+                        <script type="text/javascript">
 
-    <form action="/ui/assets/list" id="buttons">
-        <input type="submit" value="Back"/>
-    </form>
-    <button id="buttonUpdateEntity">Update</button>
+                            $.ajaxSetup({
+                                cache: false,
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                }
+                            });
 
-    <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
-    <script type="text/javascript">
+                            $(document).delegate('#btnDeleteEntity','click',function(event){
+                                event.preventDefault();
 
-        $.ajaxSetup({
-            cache: false,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        });
+                                var id = $('#id').text();
 
+                                console.log(id);
 
-        $(document).delegate('#btnDeleteEntity','click',function(event){
-            event.preventDefault();
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: '/assets/' + id,
+                                    success: function(result){
+                                        location.href="/ui/assets/list";
+                                        window.setTimeout(function(){
+                                            location.reload();
+                                        }, 1000);
+                                    },
+                                    error: function(err){
+                                        alert('DELETE REQUEST ERROR!');
+                                    }
+                                });
+                            });
 
-            var id = $('#id').text();
+                            function ajaxGet(){
 
-            console.log(id);
+                                var id = $('#id').text();
 
-            $.ajax({
-                type: "DELETE",
-                url: '/assets/' + id,
-                success: function(result){
-                    location.href="/ui/assets/list";
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 1000);
-                },
-                error: function(err){
-                    alert('DELETE REQUEST ERROR!');
-                }
-            });
-        });
+                                $.getJSON('/assets/' + id, function(json){
 
+                                    console.log(json);
 
-        function ajaxGet(){
+                                    var tr = [];
+                                    var img = [];
 
-            var id = $('#id').text();
+                                    tr.push('<tr>');
+                                    tr.push('<td>Id</td>');
+                                    tr.push('<td>' + json.id+'</td>');
+                                    tr.push('</tr>');
 
-            $.getJSON('/assets/' + id, function(json){
+                                    tr.push('<tr>');
+                                    tr.push('<td>Название актива</td>');
+                                    tr.push('<td>' + json.name+'</td>');
+                                    tr.push('</tr>');
 
-                console.log(json);
+                                    tr.push('<tr>');
+                                    tr.push('<td>Тип актива</td>');
+                                    tr.push('<td>' + json.type+'</td>');
+                                    tr.push('</tr>');
 
-                var tr = [];
+                                    tr.push('<tr>');
+                                    tr.push('<td>Категория актива</td>');
+                                    tr.push('<td>' + json.category+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Id</td>');
-                tr.push('<td>' + json.id+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Инвентарный номер</td>');
+                                    tr.push('<td>' + json.inventoryNumber+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Название актива</td>');
-                tr.push('<td>' + json.name+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Заводской номер</td>');
+                                    tr.push('<td>' + json.factoryNumber+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Тип актива</td>');
-                tr.push('<td>' + json.type+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Модель</td>');
+                                    tr.push('<td>' + json.model+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Категория актива</td>');
-                tr.push('<td>' + json.category+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Количество</td>');
+                                    tr.push('<td>' + json.quantity+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Инвентарный номер</td>');
-                tr.push('<td>' + json.inventoryNumber+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Стоимость</td>');
+                                    tr.push('<td>' + json.cost+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Заводской номер</td>');
-                tr.push('<td>' + json.factoryNumber+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Балансовая стоимость</td>');
+                                    tr.push('<td>' + json.balanceCost+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Модель</td>');
-                tr.push('<td>' + json.model+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Аудитория</td>');
+                                    tr.push('<td>' + json.auditorium+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Количество</td>');
-                tr.push('<td>' + json.quantity+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Дата ввода в эксплуатацию</td>');
+                                    tr.push('<td>' + json.commissioningDate+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Стоимость</td>');
-                tr.push('<td>' + json.cost+'</td>');
-                tr.push('</tr>');
+                                    tr.push('<tr>');
+                                    tr.push('<td>Примечания</td>');
+                                    tr.push('<td>' + json.note+'</td>');
+                                    tr.push('</tr>');
 
-                tr.push('<tr>');
-                tr.push('<td>Балансовая стоимость</td>');
-                tr.push('<td>' + json.balanceCost+'</td>');
-                tr.push('</tr>');
+                                    $('#entity_table').append($(tr.join('')));
 
-                tr.push('<tr>');
-                tr.push('<td>Аудитория</td>');
-                tr.push('<td>' + json.auditorium+'</td>');
-                tr.push('</tr>');
+                                    var path = json.name + "_" + json.inventoryNumber + "_QRCODE.png";
+                                    console.log(path);
 
-                tr.push('<tr>');
-                tr.push('<td>Дата ввода в эксплуатацию</td>');
-                tr.push('<td>' + json.commissioningDate+'</td>');
-                tr.push('</tr>');
+                                    img.push('<img class="image" src="/images/qrcode/'+path+'" alt="QR"/>');
 
-                tr.push('<tr>');
-                tr.push('<td>Примечания</td>');
-                tr.push('<td>' + json.note+'</td>');
-                tr.push('</tr>');
+                                    console.log(img);
 
-                $('#entity_table').append($(tr.join('')));
-            });
-        }
+                                    $('#images').append($(img.join('')));
+                                });
+                            }
 
-        $(document).delegate('#btnLogout','click',function(event){
-            event.preventDefault();
+                            $(document).delegate('#btnLogout','click',function(event){
+                                event.preventDefault();
 
-            $.ajax({
-                type: "GET",
-                url: '/logout',
-                success: function(result){
-                    location.href="/login";
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 1000);
-                },
-                error: function(err){
-                    alert('LOGOUT ERROR!');
-                }
-            });
-        });
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/logout',
+                                    success: function(result){
+                                        location.href="/login";
+                                        window.setTimeout(function(){
+                                            location.reload();
+                                        }, 1000);
+                                    },
+                                    error: function(err){
+                                        alert('LOGOUT ERROR!');
+                                    }
+                                });
+                            });
 
-        $(document).delegate('#buttonUpdateEntity','click',function(event){
-            event.preventDefault();
+                            $(document).delegate('#buttonUpdateEntity','click',function(event){
+                                event.preventDefault();
 
-            var id = $('#id').text();
+                                var id = $('#id').text();
 
-            console.log(id);
+                                console.log(id);
 
-            $.ajax({
-                type: "GET",
-                url: '/assets/' + id,
-                success: function(result){
-                    location.href="/ui/assets/update/" + id;
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 1000);
-                },
-                error: function(err){
-                    alert('DELETE REQUEST ERROR!');
-                }
-            });
-        });
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/assets/' + id,
+                                    success: function(result){
+                                        location.href="/ui/assets/update/" + id;
+                                        window.setTimeout(function(){
+                                            location.reload();
+                                        }, 1000);
+                                    },
+                                    error: function(err){
+                                        alert('UPDATE REQUEST ERROR!');
+                                    }
+                                });
+                            });
 
-        $(document).ready(function() {
-            ajaxGet();
-        });
-    </script>
+                            $(document).ready(function() {
+                                ajaxGet();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
