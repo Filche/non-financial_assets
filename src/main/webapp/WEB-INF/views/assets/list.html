@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Assets List</title>
     <link th:href="@{/css/asset_list.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
 
 </head>
@@ -16,17 +17,20 @@
             <div class="parent_table">
                 <div class="action_table">
                     <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
-                    <button onclick="location.href='/ui/assets/create'" type="button">Create new asset</button>
+                    <button class="button" onclick="location.href='/ui/assets/create'" type="button">Create new asset</button>
                 </div>
+                <form name="f" th:method="GET" th:action="@{/ui/assets/excel-process}">
+                    <input class="button" type="submit" value="Отчёт Excel">
+                </form>
                 <div class="assets_table">
                     <input class="search" placeholder="Поиск..."/>
                     <br/>
                     <br/>
                     <div class="scroll-table">
                         <div class="scroll-table-body">
-                            <table id="entities_table">
+                            <table id="entities_table" class="w3-table w3-striped w3-bordered w3-hoverable">
                                 <tr>
-                                    <th>Идентификатор</th>
+                                    <th>ID</th>
                                     <th>Название актива</th>
                                     <th>Тип актива</th>
                                     <th>Категория</th>
@@ -36,7 +40,7 @@
                                     <th>Количество</th>
                                     <th>Стоимость</th>
                                     <th>Балансовая стоимость</th>
-                                    <th>Дата ввода в эксплуатацию</th>
+                                    <th>Дата ВЭ</th>
                                     <th>Аудитория</th>
                                     <th>Примечания</th>
                                 </tr>
@@ -64,7 +68,9 @@
                                             tr.push('<td>'+json[i].quantity+'</td>');
                                             tr.push('<td>'+json[i].cost+'</td>');
                                             tr.push('<td>'+json[i].balanceCost+'</td>');
-                                            tr.push('<td>'+json[i].commissioningDate+'</td>');
+                                            var time = new Date(json[i].commissioningDate);
+                                            var options = {day: "numeric", month:"long", year: "numeric"};
+                                            tr.push('<td>'+time.toLocaleDateString('ru-RU',options)+'</td>');
                                             tr.push('<td>'+json[i].auditorium+'</td>');
                                             tr.push('<td>'+json[i].note+'</td>');
                                         }
@@ -95,13 +101,53 @@
                                 $(document).ready(function(){
                                     ajaxGet();
                                 });
+                                $(function(){
+                                    $('table').wrap('<div class="big-table"></div>');
+
+                                    function resize_table_box() {
+                                        $('.big-table').each(function(){
+                                            var box_width = $(this).outerWidth();
+                                            var table_width = $(this).children('table').prop('scrollWidth');
+                                            $(this).removeClass('scroll-left');
+                                            if (table_width > box_width) {
+                                                $(this).addClass('scroll-right');
+                                            } else {
+                                                $(this).removeClass('scroll-right');
+                                            }
+                                        });
+                                    }
+
+                                    resize_table_box();
+                                    $( window ).on('resize', function() {
+                                        resize_table_box();
+                                    });
+
+                                    $('.big-table table').on('scroll', function() {
+                                        var parent = $(this).parent();
+                                        if ($(this).scrollLeft() + $(this).innerWidth() >= $(this)[0].scrollWidth) {
+                                            if (parent.hasClass('scroll-right') ){
+                                                parent.removeClass('scroll-right');
+                                            }
+                                        } else if ($(this).scrollLeft() === 0){
+                                            if (parent.hasClass('scroll-left')){
+                                                parent.removeClass('scroll-left');
+                                            }
+                                        } else {
+                                            if(!parent.hasClass('scroll-right')){
+                                                parent.addClass('scroll-right');
+                                            }
+                                            if(!parent.hasClass('scroll-left')){
+                                                parent.addClass('scroll-left');
+                                            }
+                                        }
+                                    });
+                                });
                             </script>
                         </div>
                     </div>
                     <br/>
                 </div>
             </div>
-<!--        </form>-->
     </div>
   </div>
 </body>

@@ -12,7 +12,7 @@ public abstract class AbstractCRUDService<E, K> implements CRUDService<E, K> {
 
     abstract CrudRepository<E, K> getRepository();
     @Override
-    public void create(E object) {
+    public void create(E object) throws IOException, WriterException {
         getRepository().save(object);
     }
     @Override
@@ -26,7 +26,7 @@ public abstract class AbstractCRUDService<E, K> implements CRUDService<E, K> {
         return objects;
     }
     @Override
-    public E update(E object) {
+    public E update(E object) throws IOException, WriterException {
         getRepository().save(object);
         return object;
     }

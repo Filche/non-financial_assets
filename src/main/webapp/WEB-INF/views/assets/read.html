@@ -4,7 +4,7 @@
       lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/asset_list.css}" rel="stylesheet"/>
+    <link th:href="@{/css/assets_read.css}" rel="stylesheet"/>
     <title>User</title>
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
 
@@ -19,13 +19,17 @@
             <div class="action_table">
                 <div id="images">
                     <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
-<!--                    <img class="image" th:src="@{/images/qrcode/12we3_12es_QRCODE.png}" alt="QR"/>-->
                 </div>
-                <form action="/ui/assets/list" id="buttons">
-                    <input type="submit" value="Back"/>
-                </form>
-                <div>
-                    <button id="buttonUpdateEntity">Update</button>
+                <div class="buttons">
+                    <form action="/ui/assets/list" id="buttons">
+                        <input class="button" type="submit" value="Back"/>
+                    </form>
+                </div>
+                <div class="buttons1">
+                    <button class="button" id="buttonUpdateEntity">Update</button>
+                </div>
+                <div class="buttons2">
+                    <button class="button" id="buttonDeleteEntity">Delete</button>
                 </div>
             </div>
             <div class="assets_table">
@@ -52,7 +56,7 @@
                                 }
                             });
 
-                            $(document).delegate('#btnDeleteEntity','click',function(event){
+                            $(document).delegate('#buttonDeleteEntity','click',function(event){
                                 event.preventDefault();
 
                                 var id = $('#id').text();
@@ -140,9 +144,12 @@
                                     tr.push('<td>' + json.auditorium+'</td>');
                                     tr.push('</tr>');
 
+                                    var time = new Date(json.commissioningDate);
+                                    var options = {day: "numeric", month:"long", year: "numeric"};
+
                                     tr.push('<tr>');
                                     tr.push('<td>Дата ввода в эксплуатацию</td>');
-                                    tr.push('<td>' + json.commissioningDate+'</td>');
+                                    tr.push('<td>' + time.toLocaleDateString('ru-RU',options) +'</td>');
                                     tr.push('</tr>');
 
                                     tr.push('<tr>');

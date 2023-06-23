@@ -14,7 +14,7 @@ public abstract class CRUDRestController<E, K> {
     abstract CRUDService<E, K> getService();
 
     @PostMapping
-    public ResponseEntity<E> create(@RequestBody E object){
+    public ResponseEntity<E> create(@RequestBody E object) throws IOException, WriterException {
         getService().create(object);
         return ResponseEntity.ok(object);
     }
@@ -35,7 +35,7 @@ public abstract class CRUDRestController<E, K> {
     }
 
     @PutMapping
-    public ResponseEntity<E> update(@RequestBody E object){
+    public ResponseEntity<E> update(@RequestBody E object) throws IOException, WriterException {
         E updatedObject = getService().update(object);
         return ResponseEntity.ok(updatedObject);
     }

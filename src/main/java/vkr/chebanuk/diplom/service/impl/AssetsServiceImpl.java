@@ -25,19 +25,38 @@ public class AssetsServiceImpl extends AbstractCRUDService<Assets, Long> impleme
         return assetsRepository;
     }
 
-    /*@Override
+    @Override
     public List<Assets> findAll() throws IOException, WriterException {
 
         List<Assets> assetsList = new ArrayList<>();
 
         getRepository().findAll().forEach(assetsList::add);
 
+
         for(Assets asset : assetsList){
-            asset.setQRcode(QRCodeGenerator.generateQRCode(asset));
+            if(asset.getQRcode()==null){
+                asset.setQRcode(QRCodeGenerator.generateQRCode(asset));
+            }
         }
 
-        getRepository().saveAll((Iterable<? extends Assets>) assetsList);
-
+//        getRepository().saveAll((Iterable<? extends Assets>) assetsList);
         return assetsList;
-    }*/
+    }
+
+    @Override
+    public void create(Assets assets) throws IOException, WriterException {
+
+        assets.setQRcode(QRCodeGenerator.generateQRCode(assets));
+
+        getRepository().save(assets);
+
+    }
+
+    @Override
+    public Assets update(Assets assets) throws IOException, WriterException {
+        assets.setQRcode(QRCodeGenerator.generateQRCode(assets));
+
+        getRepository().save(assets);
+        return assets;
+    }
 }

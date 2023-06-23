@@ -17,9 +17,12 @@
         <div class="parent_table">
             <div class="action_table">
                 <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
-                <form action="/ui/assets/list" id="buttons">
-                    <input type="submit" value="Back"/>
-                </form>
+                <div class="buttons">
+                    <button id="btnSave" class="button">Save</button>
+                </div>
+                <div class="buttons1">
+                    <button id="btnGoToRead" class="button" type="button">Cancel</button>
+                </div>
             </div>
             <div class="assets_table">
                 <div class="scroll-table">
@@ -82,16 +85,6 @@
             <td><input id="assets_note" name="assets_note_name" type="text"></td>
         </tr>
     </table>
-
-    <br>
-    <br>
-
-
-    <div class="container">
-        <button id="btnSave" class="btnSaveAuto">Save</button>
-        <button id="btnGoToRead" type="button">Cancel</button>
-    </div>
-
     <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
 
     <script type="text/javascript">

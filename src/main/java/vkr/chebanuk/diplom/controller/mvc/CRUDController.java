@@ -31,5 +31,4 @@ public abstract class CRUDController<E, K> {
         model.addAttribute("id", id);
         return getEntityName() + "/update";
     }
-
 }
