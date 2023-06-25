@@ -146,6 +146,20 @@ th{
     border: 0;
     box-shadow: 0 0 10px rgba(0,0,0,0.7);
 }
+.buttons{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.buttons1{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+}
 .button:hover {
     background: #cccccc;
 }
@@ -155,6 +169,8 @@ th{
 .scroll-table{
     overflow: auto;
     position: relative;
+    background: #f3f3f3;
+    border-radius: 26px;
 }
 
 .scroll-table-body {

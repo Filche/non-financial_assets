@@ -20,7 +20,7 @@ public class QRCodeGenerator {
         String qrCodePath = "E:\\Programming\\Java\\Spring\\diplom\\src\\main\\webapp\\WEB-INF\\views\\images\\qrcode\\";
         String qrCodeName = qrCodePath+assets.getName()+"_"+assets.getInventoryNumber()+"_QRCODE.png";
         var qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(assets.toString(), BarcodeFormat.QR_CODE, 300, 300);
+        BitMatrix bitMatrix = qrCodeWriter.encode(assets.getName() + ", " + assets.getInventoryNumber(), BarcodeFormat.QR_CODE, 300, 300);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", byteArrayOutputStream);
         Path path = FileSystems.getDefault().getPath(qrCodeName);

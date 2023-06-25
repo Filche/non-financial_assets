@@ -19,6 +19,7 @@
             <div class="action_table">
                 <div id="images">
                     <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
+                    <img class="image" th:src="@{/images/assets/placeholder.png}" alt="Asset Picture"/>
                 </div>
                 <div class="buttons">
                     <form action="/ui/assets/list" id="buttons">
@@ -90,12 +91,12 @@
                                     var img = [];
 
                                     tr.push('<tr>');
-                                    tr.push('<td>Id</td>');
+                                    tr.push('<td>Идентификатор</td>');
                                     tr.push('<td>' + json.id+'</td>');
                                     tr.push('</tr>');
 
                                     tr.push('<tr>');
-                                    tr.push('<td>Название актива</td>');
+                                    tr.push('<td>Наименование актива</td>');
                                     tr.push('<td>' + json.name+'</td>');
                                     tr.push('</tr>');
 

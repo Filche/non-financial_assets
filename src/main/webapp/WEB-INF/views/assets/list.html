@@ -17,11 +17,15 @@
             <div class="parent_table">
                 <div class="action_table">
                     <img class="image" th:src="@{/images/IDO_image.png}" alt="IDO Logo"/>
-                    <button class="button" onclick="location.href='/ui/assets/create'" type="button">Create new asset</button>
+                    <div class="buttons">
+                        <button class="button" onclick="location.href='/ui/assets/create'" type="button">Create new asset</button>
+                    </div>
+                    <div class="buttons1">
+                        <form name="f" th:method="GET" th:action="@{/ui/assets/excel-process}">
+                            <input class="button" type="submit" value="Отчёт Excel">
+                        </form>
+                    </div>
                 </div>
-                <form name="f" th:method="GET" th:action="@{/ui/assets/excel-process}">
-                    <input class="button" type="submit" value="Отчёт Excel">
-                </form>
                 <div class="assets_table">
                     <input class="search" placeholder="Поиск..."/>
                     <br/>
